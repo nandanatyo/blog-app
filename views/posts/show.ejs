@@ -1,0 +1,30 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="card mb-4">
+    <div class="card-header">
+      <h1><%= post.title %></h1>
+      <p class="text-muted">
+        By <%= post.author.username %> on <%=
+        post.createdAt.toLocaleDateString() %>
+      </p>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= post.content %></p>
+    </div>
+    <% if(currentUser && post.author.id.equals(currentUser.id)) { %>
+    <div class="card-footer">
+      <div class="d-flex">
+        <a href="/posts/<%= post._id %>/edit" class="btn btn-info mr-2">Edit</a>
+        <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+  <a href="/posts" class="btn btn-secondary">Back to Posts</a>
+</div>
+
+<%- include('../partials/footer') %>

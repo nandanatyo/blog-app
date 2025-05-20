@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <h1>Blog Posts</h1>
+
+  <% if(currentUser) { %>
+  <div class="mb-4">
+    <a href="/posts/new" class="btn btn-primary">New Post</a>
+  </div>
+  <% } %>
+
+  <div class="row">
+    <% posts.forEach(post => { %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= post.title %></h5>
+          <p class="card-text"><%= post.content.substring(0, 100) %>...</p>
+          <p class="card-text">
+            <small class="text-muted"
+              >By <%= post.author.username %> on <%=
+              post.createdAt.toLocaleDateString() %></small
+            >
+          </p>
+          <a href="/posts/<%= post._id %>" class="btn btn-primary">Read More</a>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+
+  <% if(posts.length === 0) { %>
+  <div class="alert alert-info">
+    No posts found. Be the first to create one!
+  </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>
